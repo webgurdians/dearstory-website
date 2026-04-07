@@ -145,14 +145,34 @@ Can you please share details?`;
 
   // Hero Slideshow Logic (3D Card Stack)
   const slides = document.querySelectorAll('.hero-slideshow .slide');
-  const dots = document.querySelectorAll('.hero-slideshow .dot');
+  const dotsWrapper = document.querySelector('.hero-slideshow .slide-dots');
+  const slideshowContainer = document.querySelector('.hero-slideshow');
   const prevBtn = document.querySelector('.slide-prev');
   const nextBtn = document.querySelector('.slide-next');
   let currentSlide = 0;
   let slideInterval;
+  let renderVersion = 0;
 
   if (slides.length > 0) {
+    if (dotsWrapper) {
+      dotsWrapper.innerHTML = '';
+      slides.forEach((_, index) => {
+        const dot = document.createElement('span');
+        dot.className = `dot ${index === 0 ? 'active' : ''}`;
+        dot.dataset.index = index.toString();
+        dotsWrapper.appendChild(dot);
+      });
+    }
+
+    const dots = document.querySelectorAll('.hero-slideshow .dot');
+
     const updateCards = () => {
+      renderVersion += 1;
+      const thisRender = renderVersion;
+      const isMobile = window.matchMedia('(max-width: 767px)').matches;
+      const sideOffset = isMobile ? 24 : 50;
+      const sideDepth = isMobile ? -35 : -60;
+
       slides.forEach((slide, index) => {
         // Reset base transition
         slide.style.transition = 'transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1)';
@@ -172,13 +192,13 @@ Can you please share details?`;
           slide.style.visibility = 'visible';
         } else if (offset === 1) {
           // Card immediately to the right
-          slide.style.transform = 'translate3d(50px, 0, -60px) scale(0.9) rotate(3deg)';
+          slide.style.transform = `translate3d(${sideOffset}px, 0, ${sideDepth}px) scale(0.9) rotate(3deg)`;
           slide.style.opacity = '0.7';
           slide.style.zIndex = '5';
           slide.style.visibility = 'visible';
         } else if (offset === -1) {
           // Card immediately to the left
-          slide.style.transform = 'translate3d(-50px, 0, -60px) scale(0.9) rotate(-3deg)';
+          slide.style.transform = `translate3d(-${sideOffset}px, 0, ${sideDepth}px) scale(0.9) rotate(-3deg)`;
           slide.style.opacity = '0.7';
           slide.style.zIndex = '5';
           slide.style.visibility = 'visible';
@@ -191,13 +211,17 @@ Can you please share details?`;
           slide.style.visibility = 'visible';
           // Use setTimeout only to hide visibility after fade completes to preserve animation
           setTimeout(() => { 
-            if(slide.style.zIndex === '1') slide.style.visibility = 'hidden'; 
+            if (renderVersion === thisRender && slide.style.zIndex === '1') {
+              slide.style.visibility = 'hidden';
+            }
           }, 800);
         }
       });
       
       dots.forEach(d => d.classList.remove('active'));
-      dots[currentSlide].classList.add('active');
+      if (dots[currentSlide]) {
+        dots[currentSlide].classList.add('active');
+      }
     };
 
     const goToSlide = (index) => {
@@ -241,11 +265,12 @@ Can you please share details?`;
     });
 
     // Optional: Pause on hover
-    const slideshowContainer = document.querySelector('.hero-slideshow');
     if (slideshowContainer) {
       slideshowContainer.addEventListener('mouseenter', stopSlideshow);
       slideshowContainer.addEventListener('mouseleave', startSlideshow);
     }
+
+    window.addEventListener('resize', updateCards);
 
     // Render initial 3D card layout
     updateCards();
@@ -269,6 +294,14 @@ Can you please share details?`;
   });
 
   // Scroll Animations Logic
+  const autoAnimatedBlocks = document.querySelectorAll('.use-case-card, .step-card, .sample-card, .testimonial-card, .pricing-card, .feature-item, .faq-item');
+  autoAnimatedBlocks.forEach((block, index) => {
+    if (!block.classList.contains('animate-on-scroll')) {
+      block.classList.add('animate-on-scroll');
+      block.style.transitionDelay = `${Math.min((index % 6) * 0.08, 0.4)}s`;
+    }
+  });
+
   const observerOptions = {
     root: null,
     rootMargin: '0px',

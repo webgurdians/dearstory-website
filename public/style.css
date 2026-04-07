@@ -275,6 +275,14 @@ section {
   gap: 4px;
 }
 
+.delivery-badge {
+  background: rgba(217, 125, 125, 0.15);
+  border: 1px solid rgba(217, 125, 125, 0.25);
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+}
+
 /* Hero Slideshow Layout */
 .hero-slideshow {
   width: 100%;
@@ -299,14 +307,18 @@ section {
   top: 0; left: 0; right: 0; bottom: 0;
   border-radius: var(--radius-lg);
   box-shadow: 0 20px 40px rgba(90, 62, 54, 0.15);
+  background: linear-gradient(180deg, #fff8f3 0%, #f7ebe6 100%);
+  padding: 10px;
+  overflow: hidden;
   /* Transitions dynamically overridden via JS */
 }
 
 .hero-slide-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  border-radius: var(--radius-lg);
+  object-fit: contain;
+  object-position: center;
+  border-radius: calc(var(--radius-lg) - 6px);
 }
 
 .slide-nav {
@@ -520,7 +532,10 @@ section {
 /* Base image state needs transition for 1.03 zoom */
 .sample-card img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  min-height: 320px;
+  object-fit: cover;
+  object-position: center top;
   display: block;
   transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
@@ -554,6 +569,27 @@ section {
   opacity: 1;
 }
 
+.sample-caption {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.88rem;
+  padding: 8px 12px;
+  border-radius: 10px;
+  z-index: 3;
+  transform: translateY(0);
+  transition: transform var(--transition-smooth), opacity var(--transition-smooth);
+}
+
+.sample-card:hover .sample-caption {
+  transform: translateY(4px);
+  opacity: 0;
+}
+
 .overlay-tag {
   font-size: 0.9rem;
   text-transform: uppercase;
@@ -577,6 +613,18 @@ section {
   margin-bottom: var(--spacing-md);
   text-transform: uppercase;
   letter-spacing: 1px;
+}
+
+.sample-shipping-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 0.25rem;
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  background: rgba(244, 168, 150, 0.2);
+  border: 1px solid rgba(217, 125, 125, 0.35);
+  font-weight: 600;
 }
 
 /* Super Aahan specific styling */
@@ -1055,6 +1103,7 @@ section {
   box-shadow: var(--shadow-hover);
   z-index: 99;
   transition: transform var(--transition-fast);
+  animation: pulseFloat 2.8s ease-in-out infinite;
 }
 
 .floating-wa:hover {
@@ -1192,3 +1241,43 @@ section {
 .delay-2 { transition-delay: 0.2s; }
 .delay-3 { transition-delay: 0.3s; }
 .delay-4 { transition-delay: 0.5s; }
+
+.use-case-card,
+.step-card,
+.pricing-card,
+.testimonial-card,
+.feature-item,
+.faq-item {
+  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+}
+
+@keyframes pulseFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes subtleFadeIn {
+  from {
+    opacity: 0.6;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-wa,
+  .animate-on-scroll,
+  .use-case-card,
+  .step-card,
+  .pricing-card,
+  .testimonial-card,
+  .feature-item,
+  .faq-item {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+}
