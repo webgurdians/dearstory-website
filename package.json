@@ -1,0 +1,12 @@
+{
+  "name": "dearstory-website",
+  "version": "1.0.0",
+  "description": "DearStory Website with Google Sheets integration",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "google-auth-library": "^9.6.3",
+    "googleapis": "^144.0.0"
+  }
+}
