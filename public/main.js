@@ -9,17 +9,17 @@ document.getElementById('btn-create-story-hero'),
 document.getElementById('btn-create-story-cta'),
 document.getElementById('btn-create-story-mobile'),
 ...document.querySelectorAll('.pricing-card button')
-].filter(Boolean);
+];
   
   const btnModalClose = document.getElementById('btn-modal-close');
 
   const openModal = (e) => {
     if(e) e.preventDefault();
-    if(modal) modal.classList.add('active');
+    modal.classList.add('active');
   };
 
   const closeModal = () => {
-    if(modal) modal.classList.remove('active');
+    modal.classList.remove('active');
   };
 
   // Mobile Menu Toggle Logic
@@ -40,9 +40,7 @@ document.getElementById('btn-create-story-mobile'),
   }
 
   createStoryBtns.forEach(btn => {
-if(btn){
 btn.addEventListener(...)
-}
 });
 
   if (btnModalClose) {
