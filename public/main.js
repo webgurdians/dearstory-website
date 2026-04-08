@@ -2,7 +2,52 @@ document.addEventListener('DOMContentLoaded', () => {
   // Modal logic
   const modal = document.getElementById('lead-modal');
   const form = document.getElementById('lead-form');
-  const form = document.getElementById('lead-form');
+  if(form){
+form.addEventListener("submit", function(e){
+
+e.preventDefault();
+
+const name = document.getElementById("name").value;
+const phone = document.getElementById("phone").value;
+const occasion = document.getElementById("occasion").value;
+const story = document.getElementById("story").value;
+
+const scriptURL =
+"https://script.google.com/macros/s/AKfycbyqTZDjLmoreo1TcZmEcg2iWF18so9BPIHDi3SA83qJObDvjcY9K1JbVfcakhAxaAIy/exec";
+
+const formData = new FormData();
+
+formData.append("name", name);
+formData.append("phone", phone);
+formData.append("occasion", occasion);
+formData.append("story", story);
+
+fetch(scriptURL,{
+method:"POST",
+body:formData
+})
+.then(()=>{
+
+const message = `Hi DearStory 👋
+
+Name: ${name}
+Phone: ${phone}
+Occasion: ${occasion}
+Story: ${story}`;
+
+window.open(
+`https://wa.me/919046105790?text=${encodeURIComponent(message)}`,
+"_blank"
+);
+
+})
+.catch(error=>{
+console.error(error);
+alert("Submission failed");
+});
+
+});
+}
 
   // Multi-button selection for modal triggers
   const createStoryBtns = [
