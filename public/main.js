@@ -63,22 +63,15 @@ const scriptURL = "https://script.google.com/macros/s/AKfycbyqTZDjLmoreo1TcZmEcg
 form.addEventListener('submit', (e) => {
 e.preventDefault();
 
-const name = document.getElementById('name').value;
-const phone = document.getElementById('phone').value;
-const occasion = document.getElementById('occasion').value;
-const story = document.getElementById('story').value;
+const formData = new FormData();
+formData.append("name", name);
+formData.append("phone", phone);
+formData.append("occasion", occasion);
+formData.append("story", story);
 
 fetch(scriptURL, {
 method: "POST",
-headers: {
-"Content-Type": "application/json"
-},
-body: JSON.stringify({
-name,
-phone,
-occasion,
-story
-})
+body: formData
 })
 .then(() => {
 
@@ -98,8 +91,6 @@ window.location.href = whatsappURL;
 .catch(error => {
 console.error(error);
 alert("Server error. Please try again.");
-});
-
 });
   // WhatsApp Button handling
 const waButtons = document.querySelectorAll('.wa-button');
