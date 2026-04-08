@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Modal logic
   const modal = document.getElementById('lead-modal');
   const form = document.getElementById('lead-form');
+  const form = document.getElementById('lead-form');
 
   // Multi-button selection for modal triggers
   const createStoryBtns = [
@@ -60,22 +61,16 @@ document.getElementById('btn-create-story-mobile'),
 document.addEventListener("DOMContentLoaded", function () {
 
 
-// ===========================
-// FORM SUBMISSION
-// ===========================
-
-const form = document.querySelector("#story-form");
-
-if (form) {
-
-form.addEventListener("submit", function (e) {
+// Form submission
+if(form){
+form.addEventListener("submit", function(e){
 
 e.preventDefault();
 
-const name = document.querySelector("#name").value;
-const phone = document.querySelector("#phone").value;
-const occasion = document.querySelector("#occasion").value;
-const story = document.querySelector("#story").value;
+const name = document.getElementById("name").value;
+const phone = document.getElementById("phone").value;
+const occasion = document.getElementById("occasion").value;
+const story = document.getElementById("story").value;
 
 const scriptURL =
 "https://script.google.com/macros/s/AKfycbyqTZDjLmoreo1TcZmEcg2iWF18so9BPIHDi3SA83qJObDvjcY9K1JbVfcakhAxaAIy/exec";
@@ -87,40 +82,34 @@ formData.append("phone", phone);
 formData.append("occasion", occasion);
 formData.append("story", story);
 
-
-fetch(scriptURL, {
-method: "POST",
-body: formData
+fetch(scriptURL,{
+method:"POST",
+body:formData
 })
-.then(() => {
+.then(()=>{
 
 const message = `Hi DearStory 👋
-
-I just submitted a request on your website.
 
 Name: ${name}
 Phone: ${phone}
 Occasion: ${occasion}
-Story Idea: ${story || "Not provided"}
-`;
+Story: ${story}`;
 
-const whatsappURL =
-`https://wa.me/919046105790?text=${encodeURIComponent(message)}`;
+window.open(
+`https://wa.me/919046105790?text=${encodeURIComponent(message)}`,
+"_blank"
+);
 
-window.open(whatsappURL, "_blank");
-
-form.reset();
+closeModal();
 
 })
-.catch(error => {
+.catch(error=>{
 console.error(error);
-alert("Submission failed. Please try again.");
+alert("Submission failed");
 });
 
 });
-
 }
-
 
 
 // ===========================
