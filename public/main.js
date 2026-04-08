@@ -57,10 +57,11 @@ document.getElementById('btn-create-story-mobile'),
   });
 
   
-  // Handle form submission
+ // Handle form submission
+const form = document.getElementById('story-form');
 const scriptURL = "https://script.google.com/macros/s/AKfycbyqTZDjLmoreo1TcZmEcg2iWF18so9BPIHDi3SA83qJObDvjcY9K1JbVfcakhAxaAIy/exec";
 
-if(form){
+if (form) {
 form.addEventListener('submit', (e) => {
 e.preventDefault();
 
@@ -83,10 +84,13 @@ body: formData
 
 const message = `Hi DearStory 👋
 
+I just submitted a request on your website.
+
 Name: ${name}
 Phone: ${phone}
 Occasion: ${occasion}
-Story Idea: ${story || "Not provided"}`;
+Story Idea: ${story || "Not provided"}
+`;
 
 const whatsappURL =
 `https://wa.me/919046105790?text=${encodeURIComponent(message)}`;
@@ -101,26 +105,30 @@ alert("Server error. Please try again.");
 
 });
 }
-  // WhatsApp Button handling
+
+
+// WhatsApp Button handling
 const waButtons = document.querySelectorAll('.wa-button');
 
 waButtons.forEach(btn => {
-  btn.addEventListener('click', (e) => {
-    e.preventDefault();
+btn.addEventListener('click', (e) => {
+e.preventDefault();
 
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ event: 'whatsapp_click' });
+window.dataLayer = window.dataLayer || [];
+window.dataLayer.push({ event: 'whatsapp_click' });
 
-    const message = `Hi DearStory 👋
+const message = `Hi DearStory 👋
 
 I would like to know more about your personalized storybook services.
 
 Can you please share details?`;
 
-    const whatsappURL = `https://wa.me/919046105790?text=${encodeURIComponent(message)}`;
+const whatsappURL =
+`https://wa.me/919046105790?text=${encodeURIComponent(message)}`;
 
-    window.open(whatsappURL, '_blank');
-  });
+window.open(whatsappURL, '_blank');
+
+});
 });
   // Hero Slideshow Logic (3D Card Stack)
   const slides = document.querySelectorAll('.hero-slideshow .slide');
