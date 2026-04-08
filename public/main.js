@@ -15,11 +15,11 @@ document.getElementById('btn-create-story-mobile'),
 
   const openModal = (e) => {
     if(e) e.preventDefault();
-    modal.classList.add('active');
+    if(modal) modal.classList.add('active');
   };
 
   const closeModal = () => {
-    modal.classList.remove('active');
+    if(modal) modal.classList.remove('active');
   };
 
   // Mobile Menu Toggle Logic
