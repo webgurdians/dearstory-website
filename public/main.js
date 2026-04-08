@@ -82,7 +82,7 @@ window.location.href = whatsappURL;
   });
 }
   // WhatsApp Button handling
-  const waButtons = document.querySelectorAll('.wa-button');
+const waButtons = document.querySelectorAll('.wa-button');
 
 waButtons.forEach(btn => {
   btn.addEventListener('click', (e) => {
