@@ -5,12 +5,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Multi-button selection for modal triggers
   const createStoryBtns = [
-    document.getElementById('btn-create-story-hero'),
-    document.getElementById('btn-create-story-cta'),
-    document.getElementById('btn-create-story-mobile'),
-    ...document.querySelectorAll('.pricing-card button')
-  ];
-
+document.getElementById('btn-create-story-hero'),
+document.getElementById('btn-create-story-cta'),
+document.getElementById('btn-create-story-mobile'),
+...document.querySelectorAll('.pricing-card button')
+].filter(Boolean);
+  
   const btnModalClose = document.getElementById('btn-modal-close');
 
   const openModal = (e) => {
@@ -40,14 +40,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   createStoryBtns.forEach(btn => {
-    if (btn) {
-      btn.addEventListener('click', (e) => {
-        // GTM Tracking
-        window.dataLayer.push({ event: 'create_story_click' });
-        openModal(e);
-      });
-    }
-  });
+if(btn){
+btn.addEventListener(...)
+}
+});
 
   if (btnModalClose) {
     btnModalClose.addEventListener('click', closeModal);
