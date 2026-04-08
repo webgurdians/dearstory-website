@@ -69,46 +69,21 @@ document.getElementById('btn-create-story-mobile'),
       const honeypot = document.getElementById('website_url').value;
 
       // Send to Backend database
-      fetch('/.netlify/functions/enquiries', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          name: name,
-          phone: phone,
-          occasion: occasion,
-          story: story,
-          honeypot: honeypot
-        })
-      })
-      .then(res => res.json())
-      .then(data => {
-        if(data.status === "success"){
-          // GTM Tracking Event
-          window.dataLayer.push({
-            event: 'lead_submit',
-            name: name,
-            phone: phone,
-            occasion: occasion
-          });
-          
-          const message = `Hi DearStory 👋
+      // Temporary direct WhatsApp redirect
+
+const message = `Hi DearStory 👋
 
 I just submitted a request on your website.
-
-Here are my details:
 
 Name: ${name}
 Phone: ${phone}
 Occasion: ${occasion}
 Story Idea: ${story || "Not provided"}
+`;
 
-Please share more details. Looking forward 😊`;
-
-          const whatsappURL = `https://wa.me/919046105790?text=${encodeURIComponent(message)}`;
-          window.location.href = whatsappURL;
-        } else {
+const whatsappURL = `https://wa.me/919046105790?text=${encodeURIComponent(message)}`;
+window.location.href = whatsappURL;
+    } else {
           alert("Submission failed: " + (data.message || "Unknown error"));
         }
       })
