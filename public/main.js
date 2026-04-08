@@ -60,25 +60,25 @@ document.getElementById('btn-create-story-mobile'),
 document.addEventListener("DOMContentLoaded", function () {
 
 
-// =========================
+// ===========================
 // FORM SUBMISSION
-// =========================
+// ===========================
 
-const form = document.getElementById('story-form');
-
-const scriptURL =
-"https://script.google.com/macros/s/AKfycbyqTZDjLmoreo1TcZmEcg2iWF18so9BPIHDi3SA83qJObDvjcY9K1JbVfcakhAxaAIy/exec";
+const form = document.querySelector("#story-form");
 
 if (form) {
 
-form.addEventListener('submit', function(e){
+form.addEventListener("submit", function (e) {
 
 e.preventDefault();
 
-const name = document.getElementById('name').value;
-const phone = document.getElementById('phone').value;
-const occasion = document.getElementById('occasion').value;
-const story = document.getElementById('story').value;
+const name = document.querySelector("#name").value;
+const phone = document.querySelector("#phone").value;
+const occasion = document.querySelector("#occasion").value;
+const story = document.querySelector("#story").value;
+
+const scriptURL =
+"https://script.google.com/macros/s/AKfycbyqTZDjLmoreo1TcZmEcg2iWF18so9BPIHDi3SA83qJObDvjcY9K1JbVfcakhAxaAIy/exec";
 
 const formData = new FormData();
 
@@ -88,11 +88,10 @@ formData.append("occasion", occasion);
 formData.append("story", story);
 
 
-fetch(scriptURL,{
+fetch(scriptURL, {
 method: "POST",
 body: formData
 })
-
 .then(() => {
 
 const message = `Hi DearStory 👋
@@ -108,15 +107,14 @@ Story Idea: ${story || "Not provided"}
 const whatsappURL =
 `https://wa.me/919046105790?text=${encodeURIComponent(message)}`;
 
-window.location.href = whatsappURL;
+window.open(whatsappURL, "_blank");
+
+form.reset();
 
 })
-
 .catch(error => {
-
 console.error(error);
-alert("Server error. Please try again.");
-
+alert("Submission failed. Please try again.");
 });
 
 });
@@ -125,20 +123,15 @@ alert("Server error. Please try again.");
 
 
 
-// =========================
-// WHATSAPP BUTTONS
-// =========================
+// ===========================
+// WHATSAPP BUTTON
+// ===========================
 
-const waButtons = document.querySelectorAll('.wa-button');
+document.querySelectorAll(".wa-button").forEach(button => {
 
-waButtons.forEach(btn => {
-
-btn.addEventListener('click', function(e){
+button.addEventListener("click", function (e) {
 
 e.preventDefault();
-
-window.dataLayer = window.dataLayer || [];
-window.dataLayer.push({ event: 'whatsapp_click' });
 
 const message = `Hi DearStory 👋
 
