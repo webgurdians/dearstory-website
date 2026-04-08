@@ -58,29 +58,49 @@ document.getElementById('btn-create-story-mobile'),
 
   
   // Handle form submission
-if (form) {
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
+const scriptURL = "https://script.google.com/macros/s/AKfycbyqTZDjLmoreo1TcZmEcg2iWF18so9BPIHDi3SA83qJObDvjcY9K1JbVfcakhAxaAIy/exec";
 
-    const name = document.getElementById('name').value;
-    const phone = document.getElementById('phone').value;
-    const occasion = document.getElementById('occasion').value;
-    const story = document.getElementById('story').value;
+form.addEventListener('submit', (e) => {
+e.preventDefault();
 
-    const message = `Hi DearStory 👋
+const name = document.getElementById('name').value;
+const phone = document.getElementById('phone').value;
+const occasion = document.getElementById('occasion').value;
+const story = document.getElementById('story').value;
 
-I just submitted a request on your website.
+fetch(scriptURL, {
+method: "POST",
+headers: {
+"Content-Type": "application/json"
+},
+body: JSON.stringify({
+name,
+phone,
+occasion,
+story
+})
+})
+.then(() => {
+
+const message = `Hi DearStory 👋
 
 Name: ${name}
 Phone: ${phone}
 Occasion: ${occasion}
-Story Idea: ${story || "Not provided"}
-`;
+Story Idea: ${story || "Not provided"}`;
 
-const whatsappURL = `https://wa.me/919046105790?text=${encodeURIComponent(message)}`;
+const whatsappURL =
+`https://wa.me/919046105790?text=${encodeURIComponent(message)}`;
+
 window.location.href = whatsappURL;
-  });
-}
+
+})
+.catch(error => {
+console.error(error);
+alert("Server error. Please try again.");
+});
+
+});
   // WhatsApp Button handling
 const waButtons = document.querySelectorAll('.wa-button');
 
