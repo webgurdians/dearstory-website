@@ -60,8 +60,14 @@ document.getElementById('btn-create-story-mobile'),
   // Handle form submission
 const scriptURL = "https://script.google.com/macros/s/AKfycbyqTZDjLmoreo1TcZmEcg2iWF18so9BPIHDi3SA83qJObDvjcY9K1JbVfcakhAxaAIy/exec";
 
+if(form){
 form.addEventListener('submit', (e) => {
 e.preventDefault();
+
+const name = document.getElementById('name').value;
+const phone = document.getElementById('phone').value;
+const occasion = document.getElementById('occasion').value;
+const story = document.getElementById('story').value;
 
 const formData = new FormData();
 formData.append("name", name);
@@ -92,6 +98,9 @@ window.location.href = whatsappURL;
 console.error(error);
 alert("Server error. Please try again.");
 });
+
+});
+}
   // WhatsApp Button handling
 const waButtons = document.querySelectorAll('.wa-button');
 
