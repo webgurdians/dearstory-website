@@ -100,6 +100,7 @@ alert("Server error. Please try again.");
 });
 
 });
+}
   // WhatsApp Button handling
 const waButtons = document.querySelectorAll('.wa-button');
 
