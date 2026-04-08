@@ -57,21 +57,17 @@ document.getElementById('btn-create-story-mobile'),
   });
 
   // Handle form submission
-  if (form) {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      
-      // Get form values
-      const name = document.getElementById('name').value;
-      const phone = document.getElementById('phone').value;
-      const occasion = document.getElementById('occasion').value;
-      const story = document.getElementById('story').value;
-      const honeypot = document.getElementById('website_url').value;
+  // Handle form submission
+if (form) {
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
 
-      // Send to Backend database
-      // Temporary direct WhatsApp redirect
+    const name = document.getElementById('name').value;
+    const phone = document.getElementById('phone').value;
+    const occasion = document.getElementById('occasion').value;
+    const story = document.getElementById('story').value;
 
-const message = `Hi DearStory 👋
+    const message = `Hi DearStory 👋
 
 I just submitted a request on your website.
 
@@ -81,9 +77,10 @@ Occasion: ${occasion}
 Story Idea: ${story || "Not provided"}
 `;
 
-const whatsappURL = `https://wa.me/919046105790?text=${encodeURIComponent(message)}`;
-window.location.href = whatsappURL;
-
+    const whatsappURL = `https://wa.me/919046105790?text=${encodeURIComponent(message)}`;
+    window.location.href = whatsappURL;
+  });
+}
   // WhatsApp Button handling
   const waButtons = document.querySelectorAll('.wa-button');
   waButtons.forEach(btn => {
