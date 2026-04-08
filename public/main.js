@@ -101,6 +101,7 @@ alert("Server error. Please try again.");
 
 });
   // WhatsApp Button handling
+// WhatsApp Button handling
 const waButtons = document.querySelectorAll('.wa-button');
 
 waButtons.forEach(btn => {
@@ -115,11 +116,11 @@ waButtons.forEach(btn => {
 I would like to know more about your personalized storybook services.
 
 Can you please share details?`;
+
     const whatsappURL = `https://wa.me/919046105790?text=${encodeURIComponent(message)}`;
     window.open(whatsappURL, '_blank');
   });
 });
-
   // Hero Slideshow Logic (3D Card Stack)
   const slides = document.querySelectorAll('.hero-slideshow .slide');
   const dots = document.querySelectorAll('.hero-slideshow .dot');
