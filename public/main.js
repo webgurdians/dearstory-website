@@ -115,7 +115,6 @@ waButtons.forEach(btn => {
 I would like to know more about your personalized storybook services.
 
 Can you please share details?`;
-
     const whatsappURL = `https://wa.me/919046105790?text=${encodeURIComponent(message)}`;
     window.open(whatsappURL, '_blank');
   });
