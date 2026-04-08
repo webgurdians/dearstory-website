@@ -56,7 +56,7 @@ document.getElementById('btn-create-story-mobile'),
     }
   });
 
-  // Handle form submission
+  
   // Handle form submission
 if (form) {
   form.addEventListener('submit', (e) => {
@@ -77,8 +77,8 @@ Occasion: ${occasion}
 Story Idea: ${story || "Not provided"}
 `;
 
-    const whatsappURL = `https://wa.me/919046105790?text=${encodeURIComponent(message)}`;
-    window.location.href = whatsappURL;
+const whatsappURL = `https://wa.me/919046105790?text=${encodeURIComponent(message)}`;
+window.location.href = whatsappURL;
   });
 }
   // WhatsApp Button handling
