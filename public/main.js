@@ -88,13 +88,17 @@ window.location.href = whatsappURL;
       e.preventDefault();
       
       // GTM Tracking Event
-      window.dataLayer.push({ event: 'whatsapp_click' });
-      
-      const message = `Hi DearStory 👋
+      window.dataLayer = window.dataLayer || [];
+window.dataLayer.push({ event: 'whatsapp_click' });
+
+const message = `Hi DearStory 👋
 
 I would like to know more about your personalized storybook services.
 
 Can you please share details?`;
+
+const whatsappURL = `https://wa.me/919046105790?text=${encodeURIComponent(message)}`;
+window.open(whatsappURL, '_blank');
 
       const whatsappURL = `https://wa.me/919046105790?text=${encodeURIComponent(message)}`;
       window.open(whatsappURL, '_blank');
