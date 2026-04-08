@@ -15,11 +15,11 @@ document.getElementById('btn-create-story-mobile'),
 
   const openModal = (e) => {
     if(e) e.preventDefault();
-    modal.classList.add('active');
+    if(modal) modal.classList.add('active');
   };
 
   const closeModal = () => {
-    modal.classList.remove('active');
+    if(modal) modal.classList.remove('active');
   };
 
   // Mobile Menu Toggle Logic
@@ -39,8 +39,10 @@ document.getElementById('btn-create-story-mobile'),
     });
   }
 
-  createStoryBtns.forEach(btn => {
-btn.addEventListener(...)
+ createStoryBtns.forEach(btn => {
+  if(btn){
+    btn.addEventListener('click', openModal);
+  }
 });
 
   if (btnModalClose) {
