@@ -83,7 +83,7 @@ Story Idea: ${story || "Not provided"}
 
 const whatsappURL = `https://wa.me/919046105790?text=${encodeURIComponent(message)}`;
 window.location.href = whatsappURL;
-    } 
+    
 
   // WhatsApp Button handling
   const waButtons = document.querySelectorAll('.wa-button');
