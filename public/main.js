@@ -83,27 +83,24 @@ window.location.href = whatsappURL;
 }
   // WhatsApp Button handling
   const waButtons = document.querySelectorAll('.wa-button');
-  waButtons.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      
-      // GTM Tracking Event
-      window.dataLayer = window.dataLayer || [];
-window.dataLayer.push({ event: 'whatsapp_click' });
 
-const message = `Hi DearStory 👋
+waButtons.forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: 'whatsapp_click' });
+
+    const message = `Hi DearStory 👋
 
 I would like to know more about your personalized storybook services.
 
 Can you please share details?`;
 
-const whatsappURL = `https://wa.me/919046105790?text=${encodeURIComponent(message)}`;
-window.open(whatsappURL, '_blank');
-
-      const whatsappURL = `https://wa.me/919046105790?text=${encodeURIComponent(message)}`;
-      window.open(whatsappURL, '_blank');
-    });
+    const whatsappURL = `https://wa.me/919046105790?text=${encodeURIComponent(message)}`;
+    window.open(whatsappURL, '_blank');
   });
+});
 
   // Hero Slideshow Logic (3D Card Stack)
   const slides = document.querySelectorAll('.hero-slideshow .slide');
