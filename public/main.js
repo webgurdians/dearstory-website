@@ -52,7 +52,7 @@ closeModal();
 
 if(form){
 
-form.addEventListener("submit", async function(e){
+form.addEventListener("submit", function(e){
 
 e.preventDefault();
 
@@ -75,19 +75,8 @@ formData.append("phone", phone);
 formData.append("occasion", occasion);
 formData.append("story", story);
 
-try {
 
-await fetch(scriptURL,{
-method:"POST",
-body:formData
-});
-
-if(typeof gtag !== "undefined"){
-gtag('event', 'lead_form_submit', {
-event_category: 'Lead',
-event_label: 'DearStory Form'
-});
-}
+// OPEN WHATSAPP IMMEDIATELY
 
 const message = `Hi DearStory 👋
 
@@ -101,24 +90,34 @@ window.open(
 "_blank"
 );
 
+
+// SEND DATA IN BACKGROUND
+
+fetch(scriptURL,{
+method:"POST",
+body:formData
+})
+.then(()=>{
+if(typeof gtag !== "undefined"){
+gtag('event', 'lead_form_submit', {
+event_category: 'Lead',
+event_label: 'DearStory Form'
+});
+}
+})
+.catch(error=>{
+console.error(error);
+});
+
+
 closeModal();
 form.reset();
-
-} catch(error){
-
-console.error(error);
-alert("Submission failed");
-
-}
 
 submitBtn.disabled = false;
 submitBtn.innerText = "Submit Enquiry";
 
 });
-
 }
-
-
 
 // =============================
 // WHATSAPP BUTTONS
