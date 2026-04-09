@@ -47,14 +47,18 @@ closeModal();
 
 
 // =============================
-// FORM SUBMISSION
+// FORM SUBMISSION (FIXED)
 // =============================
 
 if(form){
 
-form.addEventListener("submit", function(e){
+form.addEventListener("submit", async function(e){
 
 e.preventDefault();
+
+const submitBtn = form.querySelector("button[type='submit']");
+submitBtn.disabled = true;
+submitBtn.innerText = "Submitting...";
 
 const name = document.getElementById("name").value;
 const phone = document.getElementById("phone").value;
@@ -71,12 +75,14 @@ formData.append("phone", phone);
 formData.append("occasion", occasion);
 formData.append("story", story);
 
-fetch(scriptURL,{
+try {
+
+await fetch(scriptURL,{
 method:"POST",
 body:formData
-})
-.then(()=>{
-  if(typeof gtag !== "undefined"){
+});
+
+if(typeof gtag !== "undefined"){
 gtag('event', 'lead_form_submit', {
 event_category: 'Lead',
 event_label: 'DearStory Form'
@@ -98,11 +104,15 @@ window.open(
 closeModal();
 form.reset();
 
-})
-.catch(error=>{
+} catch(error){
+
 console.error(error);
 alert("Submission failed");
-});
+
+}
+
+submitBtn.disabled = false;
+submitBtn.innerText = "Submit Enquiry";
 
 });
 
@@ -192,21 +202,17 @@ if (offset === -(slides.length - 1)) offset = 1;
 if (offset === slides.length - 1) offset = -1;
 
 if (offset === 0) {
-
 slide.style.opacity = "1";
 slide.style.zIndex = "10";
 slide.classList.add("active");
-
-} else if (offset === 1 || offset === -1) {
-
+}
+else if (offset === 1 || offset === -1) {
 slide.style.opacity = "0.6";
 slide.style.zIndex = "5";
-
-} else {
-
+}
+else {
 slide.style.opacity = "0";
 slide.style.zIndex = "1";
-
 }
 
 });
@@ -300,13 +306,9 @@ item.classList.add('active');
 const observer = new IntersectionObserver((entries) => {
 
 entries.forEach(entry => {
-
 if (entry.isIntersecting) {
-
 entry.target.classList.add('is-visible');
-
 }
-
 });
 
 });
@@ -314,6 +316,5 @@ entry.target.classList.add('is-visible');
 document.querySelectorAll('.animate-on-scroll').forEach(el => {
 observer.observe(el);
 });
-
 
 });
