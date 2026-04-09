@@ -76,10 +76,12 @@ method:"POST",
 body:formData
 })
 .then(()=>{
-  gtag('event', 'lead_form_submit', {
+  if(typeof gtag !== "undefined"){
+gtag('event', 'lead_form_submit', {
 event_category: 'Lead',
 event_label: 'DearStory Form'
 });
+}
 
 const message = `Hi DearStory 👋
 
@@ -117,14 +119,13 @@ document.querySelectorAll(".wa-button").forEach(btn => {
 btn.addEventListener("click", function(e){
 
 e.preventDefault();
-  button.addEventListener("click", function (e) {
 
-e.preventDefault();
-
+if(typeof gtag !== "undefined"){
 gtag('event', 'whatsapp_click', {
 event_category: 'Engagement',
 event_label: 'WhatsApp Button'
 });
+}
 
 const message = `Hi DearStory 👋
 
@@ -140,7 +141,6 @@ window.open(
 });
 
 });
-
 
 
 // =============================
