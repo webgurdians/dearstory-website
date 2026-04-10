@@ -19,6 +19,15 @@ const btnModalClose = document.getElementById('btn-modal-close');
 
 const openModal = (e) => {
 if(e) e.preventDefault();
+  if(typeof fbq !== "undefined"){
+fbq('track', 'InitiateCheckout');
+}
+if(typeof gtag !== "undefined"){
+gtag('event', 'create_story_click', {
+event_category: 'Engagement',
+event_label: 'Create Story Button'
+});
+}
 if(modal) modal.classList.add('active');
 };
 
@@ -74,6 +83,15 @@ formData.append("name", name);
 formData.append("phone", phone);
 formData.append("occasion", occasion);
 formData.append("story", story);
+  // META PIXEL LEAD TRACK
+if(typeof fbq !== "undefined"){
+fbq('track', 'Lead');
+}
+
+fetch(scriptURL,{
+method:"POST",
+body:formData
+})
 
 
 // OPEN WHATSAPP IMMEDIATELY
@@ -128,6 +146,9 @@ document.querySelectorAll(".wa-button").forEach(btn => {
 btn.addEventListener("click", function(e){
 
 e.preventDefault();
+  if(typeof fbq !== "undefined"){
+fbq('track', 'Contact');
+}
 
 if(typeof gtag !== "undefined"){
 gtag('event', 'whatsapp_click', {
