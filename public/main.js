@@ -117,6 +117,9 @@ body:formData
 })
 .then(()=>{
 if(typeof gtag !== "undefined"){
+  {
+fbq('track', 'Lead');
+}
 gtag('event', 'lead_form_submit', {
 event_category: 'Lead',
 event_label: 'DearStory Form'
