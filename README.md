@@ -111,7 +111,7 @@ The focus is on validating the idea and building a scalable storytelling platfor
 
 ## Built By
 
-Neel  
+Bijoy Sen(Neel)
 Solo Builder — DearStory
 
 This project is built using AI-assisted development, rapid prototyping, and iterative product building.
