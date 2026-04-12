@@ -109,9 +109,9 @@ The goal is to create lasting memories through storytelling and design.
 This project is built as a solo builder initiative using AI-assisted development, rapid prototyping, and iterative design.
 The focus is on validating the idea and building a scalable storytelling platform.
 
-# Author
+## Built By
 
-Bijoy Sen(Neel)
-Founder — DearStory
+Neel  
+Solo Builder — DearStory
 
-Your Story, Beautifully Told.
+This project is built using AI-assisted development, rapid prototyping, and iterative product building.
