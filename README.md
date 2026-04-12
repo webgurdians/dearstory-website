@@ -58,15 +58,17 @@ https://www.dearstory.in/
 
 Screenshots
 
+## Screenshots
+
 ### Homepage
-<img src="homepage.png" width="800"/>
+<img src="public/homepage.png" width="900"/>
 
 ### Sample Storybook
-<img src="sample-story2.png" width="800"/>
-<img src="sample-story1.png" width="800"/>
+<img src="public/sample-story1.png" width="450"/>
+<img src="public/sample-story2.png" width="450"/>
 
 ### Mobile View
-<img src="mobile-view.jpeg" width="400"/>
+<img src="public/mobile-view.jpeg" width="300"/>
 
 Sample Use Cases
 Anniversary Storybooks
