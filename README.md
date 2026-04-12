@@ -6,6 +6,7 @@ Live Website: https://dearstory.in
 
 
 # DearStory — Personalized Storybook Platform
+Your Story, Beautifully Told.
 
 DearStory is a personalized storytelling platform that transforms real-life memories into beautifully designed storybooks.
 We help individuals turn their emotions, relationships, and special moments into meaningful keepsakes.
