@@ -51,9 +51,22 @@ AI-assisted development using ChatGPT & Gemini
 
 Deployment: Vercel
 Version Control: GitHub
+
 Live Website
 
 https://www.dearstory.in/
+
+Screenshots
+
+### Homepage
+<img src="homepage.png" width="800"/>
+
+### Sample Storybook
+<img src="sample-story2.png" width="800"/>
+<img src="sample-story1.png" width="800"/>
+
+### Mobile View
+<img src="mobile-view.jpeg" width="400"/>
 
 Sample Use Cases
 Anniversary Storybooks
