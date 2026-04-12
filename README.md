@@ -10,6 +10,11 @@ Live Website: https://dearstory.in
 DearStory is a personalized storytelling platform that transforms real-life memories into beautifully designed storybooks.
 We help individuals turn their emotions, relationships, and special moments into meaningful keepsakes.
 
+## Demo
+
+🌐 Live Website: https://www.dearstory.in  
+📂 Repository: https://github.com/webgurdians/dearstory-website
+
 ## The Idea
 
 In today's digital world, memories often remain stored in phones and social media. DearStory aims to bring those memories to life through personalized storybooks designed for:
