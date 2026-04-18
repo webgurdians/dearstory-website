@@ -2,17 +2,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 // =============================
+// ANNOUNCEMENT BANNER (CHANGE 1)
+// =============================
+
+const announcementBanner = document.getElementById('announcement-banner');
+const announcementClose = document.getElementById('announcement-close');
+const siteHeader = document.getElementById('site-header');
+
+if (announcementBanner && announcementClose) {
+  // Check if banner was previously dismissed
+  if (sessionStorage.getItem('announcementDismissed') === 'true') {
+    announcementBanner.style.display = 'none';
+    if (siteHeader) siteHeader.classList.remove('banner-visible');
+  } else {
+    announcementBanner.style.display = 'flex';
+    if (siteHeader) siteHeader.classList.add('banner-visible');
+  }
+
+  announcementClose.addEventListener('click', () => {
+    announcementBanner.style.display = 'none';
+    sessionStorage.setItem('announcementDismissed', 'true');
+    if (siteHeader) siteHeader.classList.remove('banner-visible');
+  });
+}
+
+
+// =============================
 // MODAL + FORM LOGIC
 // =============================
 
 const modal = document.getElementById('lead-modal');
 const form = document.getElementById('lead-form');
+const formSuccess = document.getElementById('form-success');
 
 const createStoryBtns = [
 document.getElementById('btn-create-story-hero'),
 document.getElementById('btn-create-story-cta'),
 document.getElementById('btn-create-story-mobile'),
-...document.querySelectorAll('.pricing-card button')
+document.getElementById('btn-create-story-first-chapter')
 ];
 
 const btnModalClose = document.getElementById('btn-modal-close');
@@ -28,7 +55,12 @@ event_category: 'Engagement',
 event_label: 'Create Story Button'
 });
 }
-if(modal) modal.classList.add('active');
+if(modal) {
+  // Reset to show form, hide success
+  if(form) form.style.display = 'block';
+  if(formSuccess) formSuccess.style.display = 'none';
+  modal.classList.add('active');
+}
 };
 
 const closeModal = () => {
@@ -54,9 +86,41 @@ closeModal();
 }
 
 
+// =============================
+// SAMPLE PREVIEW MODAL (CHANGE 4)
+// =============================
+
+const sampleModal = document.getElementById('sample-modal');
+const btnSampleModalClose = document.getElementById('btn-sample-modal-close');
+const sampleCards = document.querySelectorAll('.sample-card[data-sample]');
+
+const openSampleModal = () => {
+  if (sampleModal) sampleModal.classList.add('active');
+};
+
+const closeSampleModal = () => {
+  if (sampleModal) sampleModal.classList.remove('active');
+};
+
+sampleCards.forEach(card => {
+  card.addEventListener('click', openSampleModal);
+});
+
+if (btnSampleModalClose) {
+  btnSampleModalClose.addEventListener('click', closeSampleModal);
+}
+
+if (sampleModal) {
+  sampleModal.addEventListener('click', (e) => {
+    if (e.target === sampleModal) {
+      closeSampleModal();
+    }
+  });
+}
+
 
 // =============================
-// FORM SUBMISSION (FIXED)
+// FORM SUBMISSION (CHANGE 8)
 // =============================
 
 if(form){
@@ -65,6 +129,26 @@ form.addEventListener("submit", function(e){
 
 e.preventDefault();
 
+// Phone validation (CHANGE 8)
+const phoneInput = document.getElementById("phone");
+const phoneError = document.getElementById("phone-error");
+const phoneValue = phoneInput.value.trim();
+const phoneRegex = /^[6-9][0-9]{9}$/;
+
+if (!phoneRegex.test(phoneValue)) {
+  phoneInput.classList.add('input-error');
+  if (phoneError) phoneError.style.display = 'block';
+  phoneInput.focus();
+  return;
+} else {
+  phoneInput.classList.remove('input-error');
+  if (phoneError) phoneError.style.display = 'none';
+}
+
+// Honeypot check
+const honeypot = document.getElementById("website_url");
+if (honeypot && honeypot.value) return;
+
 const submitBtn = form.querySelector("button[type='submit']");
 submitBtn.disabled = true;
 submitBtn.innerText = "Submitting...";
@@ -72,6 +156,7 @@ submitBtn.innerText = "Submitting...";
 const name = document.getElementById("name").value;
 const phone = document.getElementById("phone").value;
 const occasion = document.getElementById("occasion").value;
+const plan = document.getElementById("plan") ? document.getElementById("plan").value : '';
 const story = document.getElementById("story").value;
 
 const scriptURL =
@@ -82,44 +167,21 @@ const formData = new FormData();
 formData.append("name", name);
 formData.append("phone", phone);
 formData.append("occasion", occasion);
+formData.append("plan", plan);
 formData.append("story", story);
+
   // META PIXEL LEAD TRACK
 if(typeof fbq !== "undefined"){
 fbq('track', 'Lead');
 }
 
-fetch(scriptURL,{
-method:"POST",
-body:formData
-})
-
-
-// OPEN WHATSAPP IMMEDIATELY
-
-const message = `Hi DearStory 👋
-
-Name: ${name}
-Phone: ${phone}
-Occasion: ${occasion}
-Story: ${story || "Not provided"}`;
-
-window.open(
-`https://wa.me/919046105790?text=${encodeURIComponent(message)}`,
-"_blank"
-);
-
-
 // SEND DATA IN BACKGROUND
-
 fetch(scriptURL,{
 method:"POST",
 body:formData
 })
 .then(()=>{
 if(typeof gtag !== "undefined"){
-  {
-fbq('track', 'Lead');
-}
 gtag('event', 'lead_form_submit', {
 event_category: 'Lead',
 event_label: 'DearStory Form'
@@ -130,50 +192,39 @@ event_label: 'DearStory Form'
 console.error(error);
 });
 
+// Show success message (CHANGE 8)
+const successName = document.getElementById('success-name');
+const successWaLink = document.getElementById('success-wa-link');
 
-closeModal();
+if (successName) successName.textContent = name;
+if (successWaLink) {
+  successWaLink.href = `https://wa.me/919046105790?text=Hi!%20I%20just%20submitted%20an%20order%20form%20on%20DearStory.%20My%20name%20is%20${encodeURIComponent(name)}.`;
+}
+
+// Hide form, show success
+form.style.display = 'none';
+if (formSuccess) formSuccess.style.display = 'block';
+
 form.reset();
-
 submitBtn.disabled = false;
 submitBtn.innerText = "Submit Enquiry";
 
 });
 }
 
-// =============================
-// WHATSAPP BUTTONS
-// =============================
-
-document.querySelectorAll(".wa-button").forEach(btn => {
-
-btn.addEventListener("click", function(e){
-
-e.preventDefault();
-  if(typeof fbq !== "undefined"){
-fbq('track', 'Contact');
+// Phone field live validation
+const phoneInput = document.getElementById("phone");
+if (phoneInput) {
+  phoneInput.addEventListener('input', function() {
+    // Only allow digits
+    this.value = this.value.replace(/\D/g, '');
+    const phoneError = document.getElementById("phone-error");
+    if (this.classList.contains('input-error')) {
+      this.classList.remove('input-error');
+      if (phoneError) phoneError.style.display = 'none';
+    }
+  });
 }
-
-if(typeof gtag !== "undefined"){
-gtag('event', 'whatsapp_click', {
-event_category: 'Engagement',
-event_label: 'WhatsApp Button'
-});
-}
-
-const message = `Hi DearStory 👋
-
-I would like to know more about your personalized storybook services.
-
-Can you please share details?`;
-
-window.open(
-`https://wa.me/919046105790?text=${encodeURIComponent(message)}`,
-"_blank"
-);
-
-});
-
-});
 
 
 // =============================
@@ -339,5 +390,22 @@ entry.target.classList.add('is-visible');
 document.querySelectorAll('.animate-on-scroll').forEach(el => {
 observer.observe(el);
 });
+
+
+// =============================
+// FLOATING WA TOOLTIP
+// =============================
+
+const floatingWa = document.getElementById('floating-wa');
+if (floatingWa) {
+  floatingWa.addEventListener('mouseenter', () => {
+    const tooltip = floatingWa.querySelector('.wa-tooltip');
+    if (tooltip) tooltip.classList.add('visible');
+  });
+  floatingWa.addEventListener('mouseleave', () => {
+    const tooltip = floatingWa.querySelector('.wa-tooltip');
+    if (tooltip) tooltip.classList.remove('visible');
+  });
+}
 
 });
